@@ -33,16 +33,14 @@ public class RestaurantService {
     }
 
     // whenever the user will click on add item this will update the list and total cost
-    public Item addItemToUserSelectedItemList(Item itemName){
-        return null;
+    public void addItemToUserSelectedItemList(Item itemName){
+        this.userSelectedItems.add(itemName);
+        totalCost += itemName.getPrice();
     }
 
-    public Item removeItemfromUserSeletedItemList(Item itemName){
-        return null;
-    }
-
-    public int updateTotalCostToUser(Item newlyAddedItem){
-        return -1;
+    public void removeItemfromUserSeletedItemList(Item itemName){
+        userSelectedItems.remove(itemName);
+        totalCost += itemName.getPrice();
     }
 
     public Restaurant selectRestaurant(String restaurantName) throws restaurantNotFoundException {
@@ -53,8 +51,9 @@ public class RestaurantService {
     public List<Restaurant> getRestaurants() {
         return restaurants;
     }
+
     public List<Item> getUserSelectedItems(){return userSelectedItems;}
-    public void resetUserSelectedItems(){userSelectedItems = null;totalCost = -1;}
+    public void resetUserSelectedItems(){userSelectedItems = null;totalCost = 0;}
     public int getTotalCost(){return totalCost;}
     public Restaurant getSelectedRestaurant(){return this.selectedRestaurant;}
 

@@ -2,10 +2,9 @@ import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
-<<<<<<< HEAD
-        =======
+
 import java.util.List;
->>>>>>> fadf508 (New changelist)
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -129,15 +128,20 @@ class RestaurantServiceTest {
 
     @Test
     public void if_an_item_is_added_then_the_cost_should_get_increased_by_the_amount_of_the_price_of_the_item_added() throws restaurantNotFoundException {
-        Restaurant selectedRestaurant = service.selectRestaurant("BillaJi's Cafe");
-        Item newItem = new Item("Mango SHake", 50);
+
+        // Suppose following are the menu
+        Item newItem1 = new Item("Mango SHake", 50);
+        Item newItem2 = new Item("Jalebi Malai",120);
         int initalTotalCost = service.getTotalCost();
-        service.addItemToUserSelectedItemList(newItem);
-        assertEquals(initalTotalCost+50,service.getTotalCost());
+        service.addItemToUserSelectedItemList(newItem1);
+        service.addItemToUserSelectedItemList(newItem2);
+        assertEquals(initalTotalCost+50+120,service.getTotalCost());
     }
 
     @Test
     public void if_no_item_is_selected_then_the_total_cost_should_be_zero(){
+
+        // whenever user searches new restaurant it resets the selected items to 0
         service.resetUserSelectedItems();
         assertEquals(0,service.getTotalCost());
     }
