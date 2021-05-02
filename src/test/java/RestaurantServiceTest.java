@@ -2,6 +2,10 @@ import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+<<<<<<< HEAD
+        =======
+import java.util.List;
+>>>>>>> fadf508 (New changelist)
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class RestaurantServiceTest {
 
     //REFACTOR ALL THE REPEATED LINES OF CODE
+
     //REFACTOR ALL THE REPEATED LINES OF CODE
+
     public RestaurantService getRestaurantObject(){
         RestaurantService service = new RestaurantService();
         Restaurant restaurant;
@@ -19,16 +25,37 @@ class RestaurantServiceTest {
         restaurant = service.addRestaurant("BillaJi's Cafe","Varanasi",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Potato fry",130);
+        restaurant.addToMenu("Vanilla Cake",350);
+        restaurant.addToMenu("Banana Pancakes",120);
+        restaurant.addToMenu("Cold Strawberry Smoothie",70);
+        restaurant.addToMenu("Punjabi Mint Jaljeera Drink",80);
+        restaurant.addToMenu("Mango Yogurt Smoothie",100);
         openingTime = LocalTime.parse("10:30:00");
         closingTime = LocalTime.parse("22:00:00");
         restaurant = service.addRestaurant("Amelie's Cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+
+        restaurant.addToMenu("Potato fry",130);
+        restaurant.addToMenu("Vanilla Cake",350);
+        restaurant.addToMenu("Banana Pancakes",120);
+        restaurant.addToMenu("Cold Strawberry Smoothie",70);
+        restaurant.addToMenu("Punjabi Mint Jaljeera Drink",80);
+        restaurant.addToMenu("Mango Yogurt Smoothie",100);
+
         openingTime = LocalTime.parse("10:30:00");
         closingTime = LocalTime.parse("22:00:00");
         restaurant = service.addRestaurant("Bobcat's Cafe","Bangalore",openingTime,closingTime);
         restaurant.addToMenu("Mangalorean Buns",119);
         restaurant.addToMenu("Mysore pak", 269);
+
+        restaurant.addToMenu("Potato fry",130);
+        restaurant.addToMenu("Vanilla Cake",350);
+        restaurant.addToMenu("Banana Pancakes",120);
+        restaurant.addToMenu("Cold Strawberry Smoothie",70);
+        restaurant.addToMenu("Punjabi Mint Jaljeera Drink",80);
+        restaurant.addToMenu("Mango Yogurt Smoothie",100);
         return service;
     }
     Restaurant restaurant;
@@ -91,4 +118,41 @@ class RestaurantServiceTest {
         assertEquals(initialNumberOfRestaurants + 1,service.getRestaurants().size());
     }
     //<<<<<<<<<<<<<<<<<<<<ADMIN: ADDING & REMOVING RESTAURANTS>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void if_user_selects_an_item_then_userselectedlist_length_should_increease_by_1(){
+        int initialNumberOfItems = service.getUserSelectedItems().size();
+        Item newItem = new Item("PineApple SHake", 70);
+        service.addItemToUserSelectedItemList(newItem);
+        assertEquals(initialNumberOfItems + 1,service.getUserSelectedItems().size());
+    }
+
+    @Test
+    public void if_an_item_is_added_then_the_cost_should_get_increased_by_the_amount_of_the_price_of_the_item_added() throws restaurantNotFoundException {
+        Restaurant selectedRestaurant = service.selectRestaurant("BillaJi's Cafe");
+        Item newItem = new Item("Mango SHake", 50);
+        int initalTotalCost = service.getTotalCost();
+        service.addItemToUserSelectedItemList(newItem);
+        assertEquals(initalTotalCost+50,service.getTotalCost());
+    }
+
+    @Test
+    public void if_no_item_is_selected_then_the_total_cost_should_be_zero(){
+        service.resetUserSelectedItems();
+        assertEquals(0,service.getTotalCost());
+    }
+
+    @Test
+    public void if_an_item_is_deselected_then_the_cost_should_get_reduced_by_the_amount_of_the_price_of_the_item_added() throws restaurantNotFoundException{
+        Restaurant selectedRestaurant = service.selectRestaurant("BillaJi's Cafe");
+        Item newItem = new Item("Mango SHake", 50);
+        int initalTotalCost = service.getTotalCost();
+        service.removeItemfromUserSeletedItemList(newItem);
+        assertEquals(initalTotalCost+50,service.getTotalCost());
+    }
+
+
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<User: Getting the Total Order Cost>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 }
